@@ -12,10 +12,11 @@ public class Main{
 				for(int i = 0; i < n; i++){
 					System.out.println("Istanza del Thread: "+i);
 					s.start();	
+					
+					System.out.println("Aspetto che questo thread muoia");
+					s.join();
 				}
-				
-				System.out.println("Aspetto che questo thread muoia");
-				s.join();
+
 			}
 		}
 	}
