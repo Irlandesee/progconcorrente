@@ -1,0 +1,34 @@
+import java.io.*;
+import java.net.*;
+
+public class JabberServer {
+	public static final int PORT=8080;
+	public static void main(String[] args) throws IOException {
+		ServerSocket s = new ServerSocket(PORT);
+		System.out.println("Started: "+s);
+		try {
+			Socket mySocket=s.accept();
+			try {
+				System.out.println("Connection accepted: "+mySocket);
+				BufferedReader in=
+						new BufferedReader(new InputStreamReader(
+								mySocket.getInputStream()));
+				PrintWriter out=new PrintWriter(new BufferedWriter(
+						new OutputStreamWriter(mySocket.getOutputStream())),
+						true);
+				while(true) {
+					String str=in.readLine();
+					if(str.equals("END")) break;
+					System.out.println("Echoing:"+str);
+					out.println(str);
+				}
+			}
+			finally {
+				System.out.println("closing...");
+				mySocket.close();
+			}
+		} finally {
+			s.close();
+		}
+	}
+}
