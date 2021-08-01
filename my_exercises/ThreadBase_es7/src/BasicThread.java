@@ -19,7 +19,7 @@ public class BasicThread extends Thread{
 			}catch(InterruptedException e){
 				System.out.println(getThreadName() + ": <<termino>>");
 				//this.join();
-				break;
+				/The break;
 			}
 		}
 	}
