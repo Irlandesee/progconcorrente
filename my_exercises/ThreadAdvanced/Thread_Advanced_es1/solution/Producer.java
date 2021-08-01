@@ -1,6 +1,8 @@
 package solution;
 
 import java.util.Random;
+import java.util.ThreadLocalRandom; // USARE QUESTA PER LA GENERAZIONE DI NUMERI
+									//RANDOMICI
 
 public class Producer extends Thread{
 

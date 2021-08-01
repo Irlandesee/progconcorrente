@@ -40,4 +40,4 @@ altrimenti
 
 # misc
 Thread local random:
-ThreadLocalRandom is a combination of the ThreadLocal and Random classes (more on this later) and is isolated to the current thread
+ThreadLocalRandom is a combination of the ThreadLocal and Random classes (more on this later) and is isolated to the current thread.
