@@ -41,3 +41,5 @@ altrimenti
 # misc
 Thread local random:
 ThreadLocalRandom is a combination of the ThreadLocal and Random classes (more on this later) and is isolated to the current thread.
+
+--- maven: mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
