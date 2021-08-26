@@ -1,0 +1,1 @@
+Un esempio di Server Socket che usa il protocollo UDP per inviare un'immagine al Client. Ogni immagine viene scomposta in tanti DatagramPacket da 1024 byte -> Si può estendere all'invio dei frame di un video
