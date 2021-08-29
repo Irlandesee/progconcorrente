@@ -11,19 +11,13 @@ public class SegmentServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocket ss = new ServerSocket(SERVER_PORT);
-        Socket s = null;
+        System.out.println("Server Started @:"+SERVER_PORT);
         try{
-
-            while((s = ss.accept()) != null)
-                new ServerSlave(s);
-
-        }catch(IOException e){
-            s.close();
-            System.out.println("IOException: ");
-            e.printStackTrace();
-        }
-        finally{
-            System.out.printf("Chiudo Server socket @: %d\n", SERVER_PORT);
+            while(true){
+                Socket s = ss.accept();
+                System.out.println("Server accepts new client");
+            }
+        }finally{
             ss.close();
         }
     }
