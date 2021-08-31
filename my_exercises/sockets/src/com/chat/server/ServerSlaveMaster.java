@@ -8,9 +8,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.chat.message.Message;
-import com.chat.server.Server;
-import com.chat.server.ServerSlaveReader;
-import com.chat.server.ServerSlaveWriter;
 
 public class ServerSlaveMaster{
 

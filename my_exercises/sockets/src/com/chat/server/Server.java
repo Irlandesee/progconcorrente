@@ -1,7 +1,8 @@
 package com.chat.server;
 
-import java.net.*;
-import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.io.IOException;
 
 public class Server{
 

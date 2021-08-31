@@ -1,37 +1,43 @@
-package com.chat.server;
+package com.chat.client;
 
 import java.io.*;
-
-import java.net.Socket;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Scanner;
 
+import java.net.Socket;
+
 import com.chat.message.Message;
 
-public class ServerSlaveWriter extends Thread{
+public class ClientSlaveWriter extends Thread{
     //producer
-    private Socket s;
-
     private LinkedBlockingQueue<Message> messageQueue;
+
     private Scanner sc;
 
-	private final String SEND = ":y";
+    private Socket s;
+
+    private final String SEND = ":y";
 	private final String CANCEL = ":n";
     private final String QUIT = ":q";
 
     private boolean runCondition;
 
-    public ServerSlaveWriter(Socket _s, BlockingQueue<Message> _messageQueue, boolean _runCondition) throws  IOException{
+    public ClientSlaveWriter(Socket _s, BlockingQueue<Message> _messageQueue, boolean _runCondition) throws IOException{
         s = _s;
         messageQueue = (LinkedBlockingQueue<Message>) _messageQueue;
-        sc = new Scanner(System.in);
         runCondition = _runCondition;
+        sc = new Scanner(System.in);
     }
 
     public void run(){
-
+        while(getRunCondition()) {
+            System.out.println("reading user input");
+            readUserInput();
+        }
+        if(getRunCondition() == false)
+            System.out.printf("Thread slaveWriter %d terminating...", Thread.currentThread().getId());
     }
 
     private void readUserInput(){
@@ -40,19 +46,19 @@ public class ServerSlaveWriter extends Thread{
         String choice = "";
         Message msg;
         while(!done){
-            System.out.println("Server > ");
+            System.out.println("Client > ");
             userInput = sc.nextLine();
             System.out.printf("Send message? %s to send, %s to cancel.", SEND, CANCEL);
             choice = sc.nextLine();
             switch(choice){
                 case SEND:
-                    System.out.println("writing message to queue");
+                    System.out.println("Writing message to queue");
                     msg = new Message(userInput);
                     try{
                         synchronized (messageQueue){messageQueue.put(msg);}
                         userInput = "";
                     }catch(InterruptedException e){
-                        System.out.println("Interrupted! write not successful!");
+                        System.out.println("Interrupted! Write not successful!");
                         e.printStackTrace();
                     }
                     break;
@@ -82,7 +88,7 @@ public class ServerSlaveWriter extends Thread{
     private synchronized void sendMessageQueue() throws InterruptedException{
         //https://stackoverflow.com/questions/8894760/notify-a-thread-in-the-client-that-was-send-on-wait-in-the-server
         try{
-            ObjectOutput objectOutput = new ObjectOutputStream(s.getOutputStream());
+            ObjectOutput objectOutput = new  ObjectOutputStream(s.getOutputStream());
             objectOutput.writeObject(messageQueue);
             objectOutput.close();
         }catch(IOException e){
@@ -91,11 +97,9 @@ public class ServerSlaveWriter extends Thread{
         }
     }
 
-    public boolean getRunCondition(){
-        return runCondition;
-    }
+    public boolean getRunCondition(){return runCondition;}
 
-    private void setRunCondition(boolean _runCondition){
+    public synchronized void setRunCondition(boolean _runCondition){
         runCondition = _runCondition;
     }
 
