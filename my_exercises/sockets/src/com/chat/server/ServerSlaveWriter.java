@@ -1,6 +1,13 @@
 package com.chat.server;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import java.net.Socket;
 
@@ -17,21 +24,40 @@ public class ServerSlaveWriter extends Thread{
     private LinkedBlockingQueue<Message> messageQueue;
     private Scanner sc;
 
+    private PrintWriter outStream;
+    private BufferedReader inStream;
+
 	private final String SEND = ":y";
 	private final String CANCEL = ":n";
     private final String QUIT = ":q";
 
+    private final String ACK_want_to_write = "want_write";
+    private final String ACK_want_to_read= "want_read";
+    private final String ACK_wait = "wait";
+    private final String ACK_read_ok = "begin_read";
+    private final String ACK_write_ok = "begin_write";
+    private final String ACK_done = "done";
+
     private boolean runCondition;
+    private final int timeout = 1000;
 
     public ServerSlaveWriter(Socket _s, BlockingQueue<Message> _messageQueue, boolean _runCondition) throws  IOException{
         s = _s;
         messageQueue = (LinkedBlockingQueue<Message>) _messageQueue;
         sc = new Scanner(System.in);
+
+        outStream = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
+        inStream = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
         runCondition = _runCondition;
     }
 
     public void run(){
-
+        while(getRunCondition()){
+            readUserInput();
+            //send message queue
+            sendMessageQueue();
+        }
     }
 
     private void readUserInput(){
@@ -66,29 +92,73 @@ public class ServerSlaveWriter extends Thread{
                     setRunCondition(false);
                     break;
             }
-            if(messageQueue.size() > 0){
-                try{
-                    sendMessageQueue();
-                    //messageQueue.clear();
-                    notify();
-                }catch(InterruptedException e){
-                    System.out.printf("Thread slaveWriter %d interrupted while sending queue", Thread.currentThread().getId());
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
-    private synchronized void sendMessageQueue() throws InterruptedException{
+    private void sendMessageQueue(){
         //https://stackoverflow.com/questions/8894760/notify-a-thread-in-the-client-that-was-send-on-wait-in-the-server
-        try{
-            ObjectOutput objectOutput = new ObjectOutputStream(s.getOutputStream());
-            objectOutput.writeObject(messageQueue);
-            objectOutput.close();
-        }catch(IOException e){
-            System.out.println("Error while writing objects to object stream!");
-            e.printStackTrace();
+        System.out.println("Preparing to send objects");
+        String ackString = "";
+        boolean done = false;
+        outStream.println(ACK_want_to_write);
+
+        while(!done){
+            try{
+                ackString = inStream.readLine();
+                if(ackString.equals(ACK_write_ok)){
+                    outStream.println(ACK_wait);
+                    try{
+                        ObjectOutput objectOutput = new ObjectOutputStream(s.getOutputStream());
+                        synchronized (messageQueue){
+                            objectOutput.writeObject(messageQueue);
+                            done = true;
+                        }
+                        objectOutput.close();
+                    }catch(IOException e){
+                        System.out.println("Error while writing objects to object stream!");
+                        e.printStackTrace();
+                    }
+                }else if(ackString.equals(ACK_wait)){
+                    System.out.printf("Thread %d slaveWriter waiting\n", Thread.currentThread().getId());
+                    try{
+                        wait(timeout);
+                    }catch(InterruptedException e1){e1.printStackTrace();}
+                }
+                else if(ackString.equals(ACK_want_to_read)){
+                    //mando ultimi messaggi
+                    try{
+                        ObjectOutput objectOutput = new ObjectOutputStream(s.getOutputStream());
+                        synchronized (messageQueue){
+                            objectOutput.writeObject(messageQueue);
+                            done = true;
+                        }
+                        objectOutput.close();
+                    }catch(IOException e1){
+                        e1.printStackTrace();
+                    }
+                    //leggi
+                    System.out.printf("Thread %d slaveWriter: client %d wants to read.\n",
+                            Thread.currentThread().getId(), Server.getClientID());
+                    outStream.println(ACK_read_ok);
+                    try{
+                        wait(timeout);
+                    }catch(InterruptedException e1){
+                        System.out.printf("Thread %d slaveWriter waiting for client %d to read\n",
+                        Thread.currentThread().getId(), Server.getClientID());
+                        e1.printStackTrace();
+                    }
+                }
+                else if(ackString.equals(ACK_done))
+                    continue;
+            }catch(IOException e){
+                System.out.printf("Thread %d slaveWriter error while reading acknowledgment", Thread.currentThread().getId());
+                e.printStackTrace();
+            }
+            if(!done)
+                outStream.println(ACK_want_to_write);
         }
+        outStream.println(ACK_done);
+        System.out.println("Objects sent.");
     }
 
     public boolean getRunCondition(){
