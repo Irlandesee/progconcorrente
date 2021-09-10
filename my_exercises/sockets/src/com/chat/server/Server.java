@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Server{
 
-	private static final int SERVER_PORT = 8080;
+	private static final int SERVER_PORT = 9999;
 	private static int clientID = 0;
 
 	public static void main(String[] args) throws IOException{
@@ -18,9 +18,12 @@ public class Server{
 				Socket s = ss.accept();
 				System.out.println("server accepts a new client");
 				clientID++;
-				new ServerSlaveMaster(s);
+				new ServerSlaveMaster(s).exec();
 			}
-		}finally{
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
 			ss.close();
 		}
 	}

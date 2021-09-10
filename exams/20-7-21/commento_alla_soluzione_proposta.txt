@@ -1,0 +1,9 @@
+
+
+Il processo registry gestisce i clienti uno alla volta, cioe` non usa thread slave in grado di procedere concorrentemente. Il motivo e` che le operazioni da fare (lookup e bind) sono molto semplici e veloci, quindi non c'e` convenienza a parallelizzarle.
+NB: serializzando gli accessi da parte dei client si evita anche il problema delle corse critiche. Comunque va ricordato che Hashtable e` thread safe, quindi anche se avessimo usato dei thread slave non sarebbe stato necessario creare metodi synchronized per accedere alla hash table.
+
+Nella soluzione proposta, il client e` organizzato in modo da simulare un client RMI, cioe` il client non contiene alcun riferimento diretto a socket o a connessioni: la classe LocateReg nasconde le comunicazioni col Registry e la classe ServerProxy nasconde le comunicazioni col server.
+
+
+ 

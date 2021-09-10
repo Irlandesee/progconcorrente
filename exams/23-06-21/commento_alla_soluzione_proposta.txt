@@ -1,0 +1,9 @@
+
+Ogni volta che riceve una richiesta il server lancia un thread slave che se ne occupa e termina immeditamante il metodo. In questo modo il client puo` proseguire subito, indipendentemente dal fatto che l'operazione richiesta si concluda subito o meno.
+
+Lato client va notato che le specifiche permettono una sorta di deadlock. In effetti se ad esempio tutti i client decidono di fare due aggiunte di fila quando il deposito e` pieno finiscono con l'essere bloccati. Non si tratta di un vero deadlock, perche' e` possibile che un nuovo client entri in gioco e chieda al server di fare un prelievo, sbloccando cosi` la situazione. Se poi i client sono molto numerosi, la probabilita` di un deadlock sono praticamente nulle.
+
+Comunque e` sempre possibile fare in modo che i client non si sospendano indefinitamente. Nella soluzione proposta i client si sospendono per un tempo massimo, dopo di che concludono che il sistema e` bloccato e rinunciano all'operazione.
+Agli effetti dell'esame e` accettabile anche la soluzione senza meccanismi di sblocco dal "deadlock".
+
+

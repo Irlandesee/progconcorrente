@@ -76,6 +76,7 @@ public class ClientSlaveWriter extends Thread{
                     msg = new Message(userInput);
                     try{
                         synchronized (messageQueue){messageQueue.put(msg);}
+                        done = true;
                     }catch(InterruptedException e){
                         System.out.println("Interrupted! Write not successful!");
                         e.printStackTrace();
@@ -86,7 +87,7 @@ public class ClientSlaveWriter extends Thread{
                     break;
                 case QUIT:
                     System.out.printf("Thread slaveWriter %d terminating", Thread.currentThread().getId());
-                    done = false;
+                    done = true;
                     setRunCondition(false);
                     break;
             }

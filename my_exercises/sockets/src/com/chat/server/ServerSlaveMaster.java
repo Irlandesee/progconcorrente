@@ -47,6 +47,7 @@ public class ServerSlaveMaster{
 
     public void exec(){
         initSlaves();
+        /**
         while(getRunCondition()){
             if(!slaveReader.getRunCondition())
                 slaveReader.interrupt();
@@ -61,7 +62,7 @@ public class ServerSlaveMaster{
                         Thread.currentThread().getId());
                 e.printStackTrace();
             }
-        }
+        }**/
     }
 
     private void clearQueue(){
