@@ -33,8 +33,7 @@ public class Slave extends Thread implements ServerInterface{
     private final String QUIT_GAME = "QUIT_GAME";
     private final String WAIT = "WAIT";
     private final String NEXT_MOVE = "NEXT_MOVE";
-    private final String MOVE_OK = "MOVE_OK";
-    private final String MOVE_NOT_OK = "MOVE_NOT_OK";
+
 
     public Slave(Server _serv, Socket _s, Tavola _t, char _segnapostoAssegnato){
         serv = _serv;
@@ -44,7 +43,7 @@ public class Slave extends Thread implements ServerInterface{
         this.setName("Slave_"+slaveID);
         slaveID++;
         init();
-        printHelp();
+
     }
 
     private void init(){
@@ -115,7 +114,7 @@ public class Slave extends Thread implements ServerInterface{
                 }
             }
             else if(inboundCommand.equals(WAIT)){//aspetto il mio turno
-                System.out.printf("%s: vado in wait");
+                System.out.printf("%s: vado in wait", this.getName());
                 synchronized (this){ //vado in wait, aspetto di venire svegliato
                     try{
                         wait();
@@ -124,14 +123,7 @@ public class Slave extends Thread implements ServerInterface{
             else if(inboundCommand.equals(QUIT_GAME)){//client si è disconnesso
                 System.out.printf("%s: client si è disconnesso\n", this.getName());
             }
-            else{//lettura delle mie coordinate e loro invio
-                t.show();
-                System.out.printf("%s: inserire coordinate in questo formato: x y", this.getName());
-                System.out.print("> ");
-                String coordinates = sc.nextLine();
-                outStream.println(NEXT_MOVE);
-                outStream.println(coordinates);
-            }
+
         }
     }
 
@@ -146,13 +138,6 @@ public class Slave extends Thread implements ServerInterface{
             System.out.println("Errore nella chiusura degli stream IO");
             e1.printStackTrace();
         }
-    }
-
-    private void printHelp(){
-        System.out.println("1. Connettiti al server e crea un nuovo gioco.");
-        System.out.println("2. Connettiti al server.\nAttenzione, e' necessario che almeno un altro client abbia\n" +
-                "gia' avviato un nuovo gioco.");
-        System.out.println("3. Esci.");
     }
 
     public void reset(){
