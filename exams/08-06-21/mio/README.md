@@ -35,7 +35,7 @@ Il sistema è costituito dai seguenti elementi.
 + Il pubblicatore esegue ogni P secondi le seguenti operazioni, per ogni tipo T di notizia:
 	*comunica la notizia di tipo T a tutti i FruitoreNotizie interessati a quel tipo di notizia
 	*Cancella il contenuto della notizia di tipo T, in modo che il prossimo contributo da un ProdottuoreNotizie verrà aggiunto alla stringa vuota*
-
+---
 # note
 
 + Per il testing del sistema si ponga P = 5 secondi => Di conseguenza bisogna che i ProduttoreNotizie aggiornitno la notizia ocn un periodo ben inferiore a 5 secondi.
@@ -44,4 +44,3 @@ Il sistema è costituito dai seguenti elementi.
 	*Se un fruitoreNotizie diventa irraggiungibile(disconnessione), il Pubblicatore deve continuare a gunzionare regolarmente, anche se non riesce  a mandargli più notizie.*
 
 + Per la realizzazione del sistema si può utilizzare RMI o Socket
- 
