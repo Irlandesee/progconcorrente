@@ -1,11 +1,9 @@
 package tavola;
 
-import serverinterface.ServerInterface;
+import tavolainterface.TavolaInterface;
 import java.io.Serializable;
 
-public class Tavola implements ServerInterface, Serializable{
-
-    private static final long serialVersionUID = 1;
+public class Tavola implements TavolaInterface{
 
     private char celle[][]=
         {
@@ -15,13 +13,13 @@ public class Tavola implements ServerInterface, Serializable{
 
     public Tavola(){}
 
-    public synchronized void reset() {
+    public void reset() {
         for(int i=0; i<3; i++)
             for(int j=0; j<3; j++)
                 celle[i][j]=' ';
     }
 
-    public synchronized boolean set(int r, int c, char s) {
+    public boolean set(int r, int c, char s) {
         if(celle[r][c]==' ') {
             celle[r][c]=s;
             return true;
@@ -29,7 +27,7 @@ public class Tavola implements ServerInterface, Serializable{
             return false;
     }
 
-    public synchronized void show() {
+    public void show() {
         System.out.println("Situation:");
 //        System.out.println("-----");
         for(int r=0; r<3; r++) {
@@ -43,14 +41,14 @@ public class Tavola implements ServerInterface, Serializable{
         }
     }
 
-    public synchronized Winner cellOwner(char x) {
+    public Winner cellOwner(char x) {
         if(x=='x')
             return Winner.PLAYER1;
         else
             return Winner.PLAYER2;
     }
 
-    public synchronized Winner whoWins() {
+    public Winner whoWins() {
         if(celle[0][0]!=' ') {
             if((celle[0][0]==celle[0][1] && celle[0][0]==celle[0][2]) ||
                (celle[0][0]==celle[1][1] && celle[1][1]==celle[2][2]) ||
@@ -78,11 +76,12 @@ public class Tavola implements ServerInterface, Serializable{
         return Winner.EVEN;
     }
 
-    public synchronized char[][] getCelle(){
+    public char[][] getCelle(){
         return this.celle;
     }
 
-    public synchronized void setCelle(char[][] _celle){
+    public void setCelle(char[][] _celle){
         celle = _celle;
     }
+
 }

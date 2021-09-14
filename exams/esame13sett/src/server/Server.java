@@ -2,9 +2,8 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.InetAddress;
 import java.io.IOException;
-import serverinterface.ServerInterface;
+import tavolainterface.TavolaInterface;
 import tavola.Tavola;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.LinkedList;
 public class Server{
 
     private static final int MAX_CLIENTS = 2;
-    private final int SERVER_PORT = ServerInterface.serverPort;
+    private final int SERVER_PORT = TavolaInterface.serverPort;
 
     private List<Slave> slavesList;
     private Tavola tavola; //copia salvata valida fino al momento di una nuova copia

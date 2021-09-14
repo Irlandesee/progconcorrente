@@ -1,6 +1,6 @@
-package serverinterface;
+package tavolainterface;
 
-public interface ServerInterface {
+public interface TavolaInterface {
 
     enum Winner {NONE, PLAYER1, PLAYER2, EVEN}
 
@@ -9,10 +9,6 @@ public interface ServerInterface {
     void reset();
 
     boolean set(int r, int c, char s);
-
-    void show();
-
-    Winner cellOwner(char x);
 
     Winner whoWins();
 

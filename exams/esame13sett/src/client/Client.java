@@ -4,12 +4,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
 import java.io.IOException;
-import serverinterface.ServerInterface_close;
+import java.net.UnknownHostException;
+
 import tavola.Tavola;
 
-public class Client implements ServerInterface_close {
+public class Client {
 
-    public Client(){
+    private void exec(String addr){
+        InetAddress inetAddress;
+        try{
+            inetAddress = InetAddress.getByName(addr);
+        }catch(UnknownHostException e){
+            System.out.println("Errore nella creazione dell indirizzo.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        //creo slave
 
     }
 

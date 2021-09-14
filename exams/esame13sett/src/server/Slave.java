@@ -13,10 +13,10 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
-import serverinterface.ServerInterface;
+import tavolainterface.TavolaInterface;
 import tavola.Tavola;
 
-public class Slave extends Thread implements ServerInterface{
+public class Slave extends Thread implements TavolaInterface {
 
     private static int slaveID = 0;
     private Server serv;
