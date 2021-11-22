@@ -23,7 +23,7 @@ public class ClientThread extends Thread{
         t = _t;
         sc = new Scanner(System.in);
         clientProxy = new ProxyClient(address, segnaposto);
-        printHelp();
+        //printHelp();
         this.start();
     }
 
@@ -47,13 +47,14 @@ public class ClientThread extends Thread{
     }
 
     private int leggiComandoClient(){
-        printHelp();
+        //printHelp();
         System.out.println("Inserisci comando... 1-5");
         String comandoClient;
         if((comandoClient = sc.nextLine()) != null){
             int cmd;
             try{
                 cmd = Integer.parseInt(comandoClient);
+                System.out.println(cmd);
             }catch(NumberFormatException ne){
                 ne.printStackTrace();
                 System.out.println("Inserisci un numero!");
@@ -74,10 +75,6 @@ public class ClientThread extends Thread{
         return leggiCoordinate();
     }
 
-    private void initServerGioco(){
-
-    }
-
     public void run(){
         boolean done = false;
         int comandoClient;
@@ -90,7 +87,7 @@ public class ClientThread extends Thread{
                     break;
                 case 2:
                     System.out.printf("Connessione a un server locale.");
-
+                    clientProxy.connect();
                     break;
                 case 3:
                     System.out.printf("Inserisci coordinate prossima mossa");

@@ -26,45 +26,19 @@ public class Server{
         Server serv = new Server();
         ServerSocket serverSocket = null;
         try{
-             serverSocket = new ServerSocket(serv.SERVER_PORT);
-             System.out.printf("Avviato nuovo server @%d", serv.SERVER_PORT);
-             System.out.printf("Server in attesa di clients...\n");
-             int clientsConnected = 0;
-             serv.initGame(); //inizializzazione della tavola
-             while(true){
-                 System.out.printf("Server > clients connessi:%d\n", clientsConnected);
-                 Socket s = null;
-                 if((s = serverSocket.accept()) != null && clientsConnected <= MAX_CLIENTS ){
-                     clientsConnected++;
-                     System.out.println("Server accetta nuovo client...");
-                     System.out.printf("Server > clients connessi: %d\n", clientsConnected);
-                     Slave temp = null;
-                     if(clientsConnected == 1)
-                         temp = new Slave(serv, s, serv.getTavola(), 'X');
-                     else
-                         temp = new Slave(serv, s, serv.getTavola(), 'O');
-                     temp.start();
-                     serv.addSlave(temp);
-                 }
-                 else{
-                     System.out.println("Clients massimi raggiunti, server rifiuta connessione...");
-                     System.out.printf("Server > clients connessi: %d\n", clientsConnected);
-                 }
-             }
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            System.out.println("Closing server");
-            try{
-                serverSocket.close();
-            }catch(IOException e1){
-                System.out.println("Error while closing down server");
-                e1.printStackTrace();
+            serverSocket = new ServerSocket(serv.SERVER_PORT);
+            System.out.println("ServerSocket lanciato @"+ serv.SERVER_PORT);
+            while(true){
+                Socket sock = serverSocket.accept();
+                System.out.println("Nuova connession in entrata");
+                Slave slave = new Slave(serv, sock, serv.getTavola());
+                System.out.println("Nuovo slave lanciato");
+                serv.addSlave(slave);
             }
-
+        }catch(IOException e){
+            System.err.println("Errore durante la creazione di ServerSocket @"+ serv.SERVER_PORT);
+            return;
         }
-
-
     }
 
     /**
@@ -101,12 +75,28 @@ public class Server{
         slavesList.add(s);
     }
 
+    public int getSlaveListSize(){
+        return slavesList.size();
+    }
+
     public Tavola getTavola(){
         return this.tavola;
     }
 
     public void setTavola(Tavola _tavola){
         tavola = _tavola;
+    }
+
+    public String checkWinner(){
+        TavolaInterface.Winner winner = tavola.whoWins();
+        if(winner.equals(TavolaInterface.Winner.PLAYER1))
+            return "PLAYER1";
+        else if(winner.equals(TavolaInterface.Winner.PLAYER2))
+            return "PLAYER2";
+        else if(winner.equals(TavolaInterface.Winner.NONE))
+            return "NONE";
+        else
+            return "EVEN";
     }
 
 }

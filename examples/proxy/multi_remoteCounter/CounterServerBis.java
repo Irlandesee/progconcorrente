@@ -1,14 +1,14 @@
 import java.io.*;
 import java.net.*;
 
-public class CounterServer implements ServerInterface, Runnable{
+public class CounterServerBis implements ServerInterface, Runnable{
 
 	private Socket _s;
 	private int _counter = 0;
 	private BufferedReader iStream;
 	private PrintWriter oStream;
 
-	public CounterServer(Socket s){
+	public CounterServerBis(Socket s){
 		_s = s;
 		try{
 			iStream = new BufferedReader(new InputStreamReader(
@@ -43,10 +43,10 @@ public class CounterServer implements ServerInterface, Runnable{
 
 	public void run(){
 		try{
-			while(!_s.isClose()){
+			while(!_s.isClosed()){
 				int result = 0;
 				String myOper = iStream.readLine();
-				switc(myOper){
+				switch(myOper){
 					case "<incr>":
 						result = increment();
 						break;
@@ -54,7 +54,7 @@ public class CounterServer implements ServerInterface, Runnable{
 						result = reset();
 						break;
 					case "<sum>":
-						String[] temp = myOper.slit(" ");
+						String[] temp = myOper.split(" ");
 						String op = temp[0];
 						String add = temp[1];
 						result = sum(Integer.parseInt(add));

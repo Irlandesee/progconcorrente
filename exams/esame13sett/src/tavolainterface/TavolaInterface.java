@@ -4,7 +4,7 @@ public interface TavolaInterface {
 
     enum Winner {NONE, PLAYER1, PLAYER2, EVEN}
 
-    int serverPort = 8080;
+    int serverPort = 8070;
 
     void reset();
 

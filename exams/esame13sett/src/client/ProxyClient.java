@@ -27,26 +27,31 @@ public class ProxyClient implements TavolaInterface_close {
     private BufferedReader inStream;
     private PrintWriter outStream;
 
+    private final String NEW_GAME = "NEWGAME";
+
     public ProxyClient(InetAddress address, char _segnaposto){
         segnaposto = _segnaposto;
         try{
             s = new Socket(address, serverPort);
             inStream = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            outStream = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())));
+            outStream = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
             inputStreamObject = new ObjectInputStream(s.getInputStream());
             outputStreamObject = new ObjectOutputStream(s.getOutputStream());
         }catch(IOException e){
             System.out.println("Errore nella creazione degli Stream!.");
             e.printStackTrace();
         }
+
     }
 
     public void nuovoGioco(){
-        outStream.println("NEW_GAME");
+        System.out.println(NEW_GAME);
+        outStream.println(NEW_GAME);
         //aspetto risposta del server
         String risposta = "";
         try{
             risposta = inStream.readLine();
+            System.out.println(risposta);
             if(risposta.equals("OK")){
                 System.out.println("Gioco creato correttamente");
                 setTurno(false);
@@ -57,7 +62,6 @@ public class ProxyClient implements TavolaInterface_close {
         }
         System.out.println("Esiste gia un gioco in corso!");
         setTurno(true);
-
     }
 
     public void reset(){
@@ -81,14 +85,6 @@ public class ProxyClient implements TavolaInterface_close {
             System.out.println("Eccezione io mentre leggevo risposta!");
             e.printStackTrace();
         }
-    }
-
-    public synchronized boolean getTurno(){
-        return this.turn;
-    }
-
-    public synchronized void setTurno(boolean _mioTurno){
-        turn = _mioTurno;
     }
 
     public Tavola getTavola(){
@@ -165,6 +161,14 @@ public class ProxyClient implements TavolaInterface_close {
 
     public void setSegnaposto(char _segnaposto){
         segnaposto = _segnaposto;
+    }
+
+    public synchronized boolean getTurno(){
+        return this.turn;
+    }
+
+    public synchronized void setTurno(boolean _mioTurno){
+        turn = _mioTurno;
     }
 
 }
