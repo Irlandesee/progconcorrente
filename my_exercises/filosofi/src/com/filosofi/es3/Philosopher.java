@@ -40,4 +40,12 @@ public class Philosopher extends Thread{
         return this.right.getChopstickID();
     }
 
+    public PhilosopherState getPhilState(){
+        return this.state;
+    }
+
+    public void setPhilState(PhilosopherState state){
+        this.state = state;
+    }
+
 }
