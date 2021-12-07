@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0cdc8780-921a-478e-8898-04ac189c252c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/asta/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/asta/ClientProxy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/asta/ServerAsta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/asta/ServerInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/asta/ServerSlave.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/untitled104.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filosofi/src/com/filosofi/es3/Chopstick.java" beforeDir="false" afterPath="$PROJECT_DIR$/../filosofi/src/com/filosofi/es3/Chopstick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filosofi/src/com/filosofi/es3/Handler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filosofi/src/com/filosofi/es3/Philosopher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../filosofi/src/com/filosofi/es3/Philosopher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filosofi/src/com/filosofi/es3/Pool.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/chat/ClientSlave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/ClientSlave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/ServerChatSlave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/client/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/client/ClientSlaveMaster.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/client/ClientSlaveReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/client/ClientSlaveWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/message/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/server/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/server/ServerSlaveMaster.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/server/ServerSlaveReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/chat/server/ServerSlaveWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/ClientThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/SegmentClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/SegmentServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/ServerSlave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/point/Point.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sockets/com/ex_segment/segment/Segment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/ClientSlave.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/client/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/client/ClientSlaveMaster.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/client/ClientSlaveReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/client/ClientSlaveWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/message/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/server/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/server/ServerSlaveMaster.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/server/ServerSlaveReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/chat/server/ServerSlaveWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/ClientThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/SegmentClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/SegmentServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/ServerSlave.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/point/Point.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ex_segment/segment/Segment.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="21v65CggyPZRbqKyqilHSWbgWFg" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="company" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.asta.Main" />
+      <module name="untitled104" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0cdc8780-921a-478e-8898-04ac189c252c" name="Changes" comment="" />
+      <created>1638806604907</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638806604907</updated>
+      <workItem from="1638806607549" duration="2319000" />
+      <workItem from="1638809039613" duration="1598000" />
+      <workItem from="1638886323265" duration="11521000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

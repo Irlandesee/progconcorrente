@@ -1,51 +1,32 @@
-package com.filosofi.es3;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Philosopher extends Thread{
 
-    private int id;
-    private Chopstick left;
-    private Chopstick right;
+	private Chopstick right, left;
+	private int id;
+	private Waiter w;
 
-    public enum PhilosopherState {
-        thinking, //waiting
-        hungry, //ready
-        eating //running
-    }
+	public Philosopher(int id, Waiter w, Chopstick left, Chopstick right){
+		this.id = id;
+		this.left = left;
+		this.right = right;
+		this.w = w;
+	}
 
-    private PhilosopherState state = PhilosopherState.thinking;
+	public void run(){
+		try{
+			Thread.sleep(ThreadLocalRandom.current().nextInt(30, 50));
+			w.takeTwo(left, right);
+			System.out.printf("Phil: %d eating\n", this.id);
+			Thread.sleep(ThreadLocalRandom.current().nextInt(10 ,40));
+			w.leaveTwo(left, right);
+		}catch(InterruptedException ie){
+			ie.printStackTrace();
+		}
+	}
 
-    public Philosopher(int id, Chopstick left, Chopstick right){
-        this.id = id;
-        this.left = left;
-        this.right = right;
-    }
-
-    public void run(){
-
-    }
-
-    public int getPhilID(){
-        return this.id;
-    }
-
-    public void setPhilID(int id){
-        this.id = id;
-    }
-
-    public int getLeftChopstickID(){
-        return this.left.getChopstickID();
-    }
-
-    public int getRightChopstickID(){
-        return this.right.getChopstickID();
-    }
-
-    public PhilosopherState getPhilState(){
-        return this.state;
-    }
-
-    public void setPhilState(PhilosopherState state){
-        this.state = state;
-    }
+	public int getID(){
+		return this.id;
+	}
 
 }

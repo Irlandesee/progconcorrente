@@ -1,38 +1,28 @@
-package com.filosofi.es3;
+public class Chopstick{
 
-public class Chopstick {
+	public enum State{AVAILABLE, BUSY}
+	private State state;
+	private int id;
 
-    private int id;
+	public Chopstick(int id){
+		this.id = id;
+		this.state = Chopstick.State.AVAILABLE;
+	}
 
-    private enum ChopstickState {
-        available,
-        busy
-    }
+	public void take(){
+		this.state = Chopstick.State.BUSY;
+	}
 
-    private ChopstickState state = ChopstickState.available;
+	public boolean isAvailable(){
+		return (this.state == Chopstick.State.AVAILABLE);
+	}
 
-    public Chopstick(int id){
-        this.id = id;
-    }
+	public void leave(){
+		this.state = Chopstick.State.AVAILABLE;
+	}
 
-    public boolean isAvailable(){
-        return state == ChopstickState.available;
-    }
-
-    public void take(){
-        state = ChopstickState.busy;
-    }
-
-    public void leave(){
-        state = ChopstickState.available;
-    }
-
-    public int getChopstickID(){
-        return this.id;
-    }
-
-    public void setChopstickID(int id){
-        this.id = id;
-    }
+	public int getID(){
+		return this.id;
+	}
 
 }
