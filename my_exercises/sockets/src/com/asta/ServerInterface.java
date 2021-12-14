@@ -1,13 +1,15 @@
 package com.asta;
 
+import java.io.IOException;
+
 public interface ServerInterface {
 
-    void quit();
+    void quit() throws IOException;
 
-    double read();
+    double read() throws IOException;
 
-    void offer(double offer, Client client);
+    void offer(double offer, Client client) throws IOException;
 
-    String getItem();
+    String getItem() throws IOException;
 
 }

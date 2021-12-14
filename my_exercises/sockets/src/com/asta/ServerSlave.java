@@ -95,12 +95,10 @@ public class ServerSlave extends Thread{
                         String offer = inStream.readLine();
                         System.out.printf("Slave %d: Placing new offer", id);
                         sa.addOffer(offer);
-                        outStream.println("DONE");
                         break;
                     case GET_ITEM:
                         String offeredItem = sa.auctionItem;
                         outStream.println(offeredItem);
-                        outStream.println("DONE");
                         break;
                     default:
                         System.out.printf("Slave %d: Command not recognized", id);

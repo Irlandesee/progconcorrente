@@ -54,7 +54,6 @@ public class ServerAsta {
                 try{
                     assert ss != null;
                     if(ss.getSoTimeout() == 0){
-                        System.out.println("No slaves remaining... closing offer");
                         String itemInOffer = sa.items.get(0);
                         sa.auctionItem = itemInOffer;
                         double biggestOffer = 0;
