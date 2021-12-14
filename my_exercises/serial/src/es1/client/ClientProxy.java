@@ -1,6 +1,8 @@
-import serverinterface.ServerInterface;
-import point.Point;
-import Segment.Segment;
+package es1.client;
+
+import es1.serverinterface.ServerInterface;
+import es1.point.Point;
+import es1.segment.Segment;
 
 import java.net.Socket;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class ClientProxy implements ServerInterface extends Thread{
+public class ClientProxy extends Thread implements ServerInterface{
 
 	private Socket sock;
 	private int proxyID;
@@ -72,14 +74,15 @@ public class ClientProxy implements ServerInterface extends Thread{
 			}
 		}
 		sc.close();
+		return "";
 	}
 
 	private Point readUserPoint(){
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Inserisci cordinata x: ");
-		int x = Integer.parseInt(sc.readLine());
-		System.out.print("Inserisci cordinata y: ");
-		int y = Integer.parseInt(sc.readLine());
+		System.out.print("Inserisci coordinata x: ");
+		int x = Integer.parseInt(sc.nextLine());
+		System.out.print("Inserisci coordinata y: ");
+		int y = Integer.parseInt(sc.nextLine());
 		sc.close();
 		return new Point(x, y);
 	}
@@ -92,14 +95,13 @@ public class ClientProxy implements ServerInterface extends Thread{
 		outStream.writeObject(p1);
 		outStream.writeObject(p2);
 
-		String response = inStream.readObjcet().toString();
+		String response = inStream.readObject().toString();
 		if(response.equals(ServerInterface.SUCCESS)){
 			System.out.println("SUCCESS");
 		}
 		else
 			System.out.println("FAILURE, points not valid");
 
-		inStream.flush();
 		outStream.flush();
 		inStream.close();
 		outStream.close();
@@ -112,23 +114,24 @@ public class ClientProxy implements ServerInterface extends Thread{
 		outStream.writeObject(ServerInterface.SYMMETRICAL);
 		outStream.writeObject(p);
 		Object response = inStream.readObject();
-		if(Object instanceof Point){
-			Point sym = (Point) response;
+		Point sym = null;
+		if(response instanceof Point){
+			sym = (Point) response;
 			System.out.println("x: "+sym.getX()+" y: "+sym.getY());
 		}else{
 			String r = response.toString();
 			System.out.println("Server says: "+r);
 		}
 
-		inStream.flush();
 		outStream.flush();
 		inStream.close();
 		outStream.close();
+		return sym;
 	}
 
 	public void list() throws IOException, ClassNotFoundException{
-		inStream = ObjectInputStream(sock.getInputStream());
-		outStream = ObjectOutputStream(sock.getOutputStream());
+		inStream = new ObjectInputStream(sock.getInputStream());
+		outStream = new ObjectOutputStream(sock.getOutputStream());
 
 		outStream.writeObject(ServerInterface.GET_LIST);
 		Object o = null;
@@ -138,7 +141,6 @@ public class ClientProxy implements ServerInterface extends Thread{
 		}
 		System.out.println("----Done----");
 
-		inStream.flush();
 		outStream.flush();
 		inStream.close();
 		outStream.close();	

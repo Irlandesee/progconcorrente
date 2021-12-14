@@ -1,12 +1,12 @@
-package server;
+package es1.server;
 
-import point.Point;
-import segment.Segment;
+import es1.point.Point;
+import es1.segment.Segment;
 import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.LinkedList;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class ServerSlave extends Thread{
 
@@ -37,7 +37,7 @@ public class ServerSlave extends Thread{
 		try{
 			inStream = new ObjectInputStream(sock.getInputStream());
 			String command = "";
-			while(!(command = inStream.readObject().toString()).equals(ServerSlave.END_STRING)){
+			while(!(command = inStream.readObject().toString()).equals(END_STRING)){
 				switch(command){
 					case NEW_SEGMENT:
 						//receive objects

@@ -1,5 +1,5 @@
-package segment;
-import point.*;
+package es1.segment;
+import es1.point.Point;
 
 public class Segment{
 

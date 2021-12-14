@@ -1,4 +1,4 @@
-package server;
+package es1.server;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;

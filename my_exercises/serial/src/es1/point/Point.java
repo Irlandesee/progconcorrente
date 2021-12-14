@@ -1,4 +1,4 @@
-package point;
+package es1.point;
 public class Point{
 
   private static final long serialVersionUID = 1;

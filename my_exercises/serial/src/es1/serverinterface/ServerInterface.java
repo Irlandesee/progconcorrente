@@ -1,6 +1,10 @@
-import point.Point;
-import segment.Segment;
-interface ServerInterface{
+package es1.serverinterface;
+
+import es1.point.Point;
+import es1.segment.Segment;
+import java.io.IOException;
+
+public interface ServerInterface{
 
 	final String END_STRING = "END";
 	final String NEW_SEGMENT = "NEW_SEGMENT";
