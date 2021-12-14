@@ -80,8 +80,7 @@ public class ServerSlave extends Thread{
         System.out.printf("Slave %d: reading top offer\n", slaveID);
         outStream = new ObjectOutputStream(sock.getOutputStream());
 
-        Offer topOffer = serv.getTopOffer();
-        outStream.writeObject(topOffer);
+        //TODO: implementare ricerca top offerta -> sends back the amount offered
 
         //System.out.println("Done");
         outStream.flush();
