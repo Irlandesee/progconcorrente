@@ -82,9 +82,12 @@ public class Server {
 
     protected synchronized boolean addOffer(Offer offer){
         long timeout = ThreadLocalRandom.current().nextInt(10, 30);
+        if(offers.size() == 0)
+            topOffer = offer;
         try{
             if(offers.offer(offer, timeout, TimeUnit.MILLISECONDS)) {
-                System.out.println("Offer added");
+                if(offer.compareOffers(topOffer))
+                    topOffer = offer;
                 return true;
             }
         }catch(InterruptedException ie){

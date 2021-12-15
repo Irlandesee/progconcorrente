@@ -24,7 +24,6 @@ public class ClientProxy implements ServerInterface{
     public void quit() throws IOException {
         outputStream = new ObjectOutputStream(sock.getOutputStream());
         outputStream.writeObject(ServerInterface.QUIT);
-        //TODO: response?
         outputStream.flush();
         outputStream.close();
     }
