@@ -1,6 +1,8 @@
 package com.socketAdvanced.es1.operations;
 
-public class OperationRequest {
+import java.io.Serializable;
+
+public class OperationRequest implements Serializable {
 
     private static final long serialVersionUID = 1;
 

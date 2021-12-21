@@ -1,6 +1,8 @@
 package com.socketAdvanced.es1.operations;
 
-public class Result {
+import java.io.Serializable;
+
+public class Result implements Serializable {
 
     private static final long serialVersionUID = 1;
 

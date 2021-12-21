@@ -6,23 +6,30 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ClientProxy extends Thread implements BankInterface {
 
+    private static int proxyID;
     private Socket sock;
     private Client client;
     private ObjectInputStream inStream;
     private ObjectOutputStream outStream;
     private boolean keepAlive = true;
 
+
     public ClientProxy(Client c, Socket sock){
         this.sock = sock;
         this.client = c;
+        proxyID++;
     }
 
     public void run(){
         while(getKeepAlive()){
+            try{
+                System.out.printf("Proxy %d: waiting\n", ClientProxy.proxyID);
+                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
+            }catch(InterruptedException ie){ie.printStackTrace();}
 
         }
         //quit
@@ -44,6 +51,7 @@ public class ClientProxy extends Thread implements BankInterface {
                     new OperationRequest(client.getMyAccountNum(), amount, operation);
             writeRequest(dep);
             r = (Result) inStream.readObject();
+            inStream.close();
         }catch(ClassNotFoundException ce){ce.printStackTrace();}
         return r;
     }
