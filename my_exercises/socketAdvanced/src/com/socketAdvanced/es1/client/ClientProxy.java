@@ -8,68 +8,57 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ClientProxy extends Thread implements BankInterface {
+public class ClientProxy implements BankInterface {
 
     private static int proxyID;
     private Socket sock;
     private Client client;
     private ObjectInputStream inStream;
     private ObjectOutputStream outStream;
-    private boolean keepAlive = true;
 
+    private Result result;
 
     public ClientProxy(Client c, Socket sock){
         this.sock = sock;
         this.client = c;
         proxyID++;
-    }
-
-    public void run(){
-        while(getKeepAlive()){
-            try{
-                System.out.printf("Proxy %d: waiting\n", ClientProxy.proxyID);
-                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
-            }catch(InterruptedException ie){ie.printStackTrace();}
-
+        try{
+            outStream = new ObjectOutputStream(sock.getOutputStream());
+            inStream = new ObjectInputStream(sock.getInputStream());
+        }catch(IOException io){
+            io.printStackTrace();
+            System.err.printf("Proxy: %d error while creating streams\n", proxyID);
         }
-        //quit
+    }
+
+    public void executeOperation(String operation, int amount){
+        Result r = new Result(client.getMyAccountNum(), amount, operation, false);
         try{
-            System.out.println("Cp disconnecting from port@"+BankInterface.PORT);
-            disconnect();
-        }catch(IOException io2){io2.printStackTrace();}
+
+            System.out.printf("Proxy: Executing operation: %s %s\n", operation, amount);
+            OperationRequest dep = new OperationRequest(client.getMyAccountNum(), amount, operation);System.out.println("Proxy: Writing object to stream");
+            outStream.writeObject(dep);
+            outStream.flush();
+            ClientSlave cs = new ClientSlave(inStream, r);
+            try{
+                Thread.sleep(ThreadLocalRandom.current().nextInt(100, 200));
+            }catch(InterruptedException ie){ie.printStackTrace();}
+            setResult(cs.getRes());
+        }catch(IOException ioe){ioe.printStackTrace();}
     }
 
-    public boolean getKeepAlive(){return this.keepAlive;}
-    public void setKeepAlive(boolean keepAlive){this.keepAlive = keepAlive;}
-
-    public Result executeOperation(String operation, int amount) throws IOException{
-        Result r = null;
-        String opReq = null;
-        inStream = new ObjectInputStream(sock.getInputStream());
-        try{
-            OperationRequest dep =
-                    new OperationRequest(client.getMyAccountNum(), amount, operation);
-            writeRequest(dep);
-            r = (Result) inStream.readObject();
-            inStream.close();
-        }catch(ClassNotFoundException ce){ce.printStackTrace();}
-        return r;
-    }
-
-    private void writeRequest(OperationRequest op) throws IOException{
-        outStream = new ObjectOutputStream(sock.getOutputStream());
-        outStream.writeObject(op);
-        outStream.flush();
-        outStream.close();
-    }
-
-    public void quit(){setKeepAlive(false);}
-
-    private void disconnect() throws IOException{
+    public void quit() throws IOException{
+        System.out.println("Cp disconnecting from port@"+BankInterface.PORT);
         outStream = new ObjectOutputStream(sock.getOutputStream());
         outStream.writeObject(BankInterface.QUIT);
         outStream.flush();
         outStream.close();
     }
+
+    private void setResult(Result r){
+        this.result = r;
+    }
+
+    public Result getResult(){return this.result;}
 
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class OperationRequest implements Serializable {
 
-    private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1L;
 
     private int CCnumber;
     private int amount;
@@ -20,5 +20,8 @@ public class OperationRequest implements Serializable {
     public int getAmount(){return amount;}
     public String getRequest(){return request;}
 
+    public String toString(){
+        return "req: " + this.request + "amount: " + this.amount;
+    }
 
 }

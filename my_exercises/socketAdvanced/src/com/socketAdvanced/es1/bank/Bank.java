@@ -20,18 +20,23 @@ public class Bank {
         Socket sock = null;
 
         Bank bank = new Bank();
+        bank.slaves = new LinkedList<Thread>();
         int i = 0;
         try{
             ss = new ServerSocket(bank.serverPort);
             while((sock = ss.accept()) != null){
+                System.err.println("Nuova connessione in entrata");
                 Thread slave = new SkeletonSlave(i, sock, bank);
+                System.err.println("Nuovo slave creato"+ i);
                 bank.addSlave(slave);
                 i++;
             }
         }catch(IOException io){
             io.printStackTrace();
         }finally{
-
+            try{
+                ss.close();
+            }catch(IOException ioe){ioe.printStackTrace();}
         }
     }
 
@@ -40,10 +45,10 @@ public class Bank {
         String opType = op.getRequest();
         if(ccNum < 0 || ccNum > 2)
             return new Result(-1, 0, opType, false);
-        if(opType.equals("Deposit")){
+        if(opType.equalsIgnoreCase("Deposit")){
             ccAmounts[ccNum] += op.getAmount();
             return new Result(ccNum, ccAmounts[ccNum], opType, true);
-        }else if(opType.equals("Withdraw")){
+        }else if(opType.equalsIgnoreCase("Withdraw")){
             if(op.getAmount() > ccAmounts[ccNum]){
                 return new Result(ccNum, 0, opType, false);
             }else{

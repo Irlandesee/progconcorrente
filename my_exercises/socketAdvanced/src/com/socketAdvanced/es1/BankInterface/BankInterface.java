@@ -9,6 +9,6 @@ public interface BankInterface {
 
     int PORT = 8080;
     String QUIT = "QUIT";
-    Result executeOperation(String op, int amount) throws IOException;
-    void quit();
+    void executeOperation(String op, int amount);
+    void quit() throws IOException;
 }

@@ -24,45 +24,46 @@ public class SkeletonSlave extends Thread{
         this.sock = sock;
         this.bank = bank;
         clientID++;
+        try{
+            outStream = new ObjectOutputStream(sock.getOutputStream());
+            inStream = new ObjectInputStream(sock.getInputStream());
+        }catch(IOException io){
+            System.out.printf("Slave %d: error while creating streams\n", skeletonID);
+            io.printStackTrace();
+        }
+        start();
     }
 
     public void run(){
-        inStream = null;
+        System.err.println("Slave talking with client "+ clientID);
         try{
-            inStream = new ObjectInputStream(sock.getInputStream());
-            Object in;
+
             try{
-                while((in = inStream.readObject()) != null){
-                    if(in instanceof String){
-                        if(in.toString().equals(BankInterface.QUIT))
-                            break;
+                while(true){
+                    System.out.println("waiting command");
+                    OperationRequest op = (OperationRequest) inStream.readObject();
+                    System.err.println("Executing, "+op.toString());
+                    if(op.getRequest().equalsIgnoreCase("QUIT")){
+                        System.err.printf("Slave %d: client %d has dropped the connection\n", skeletonID, clientID);
+                        break;
                     }
-                    else{
-                        OperationRequest op = (OperationRequest) in;
-                        Result r = bank.executeOperation(op);
-                        System.out.printf("Slave %d writing result %s to socket\n", skeletonID, r.toString());
-                        writeResult(r);
-                        System.out.println("Done");
-                    }
+                    Result res = bank.executeOperation(op);
+                    outStream.writeObject(res);
+                    outStream.flush();
                 }
-                //quit
-                System.out.printf("Slave %d: client %d has dropped the connection\n", skeletonID, clientID);
-                sock.close();
             }catch(ClassNotFoundException ce){ce.printStackTrace();}
         }catch(IOException io){
             io.printStackTrace();
-        }finally {
+        }
+        /**
+        finally {
             try{
                 inStream.close();
+                outStream.close();
+                sock.close();
             }catch(IOException io2){io2.printStackTrace();}
         }
-    }
-
-    private void writeResult(Result r) throws IOException{
-        outStream = new ObjectOutputStream(sock.getOutputStream());
-        outStream.writeObject(r);
-        outStream.flush();
-        outStream.close();
+         **/
     }
 
 }
